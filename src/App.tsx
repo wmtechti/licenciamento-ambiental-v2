@@ -588,9 +588,9 @@ function AppContent() {
       </div>
 
       {/* Main Content */}
-      <div className={`transition-all duration-300 ${sidebarCollapsed ? 'ml-16' : 'ml-64'}`}>
+      <div className="flex flex-col">
         {/* Header */}
-        <header className="dark-header">
+        <header className="dark-header fixed top-0 left-0 right-0 z-40">
           <div className="px-6 py-4 flex justify-between items-center">
             <div className="flex items-center space-x-4">
               <h2 className="text-sm text-gray-300">
@@ -630,10 +630,10 @@ function AppContent() {
           </div>
         </header>
 
-        {/* Content */}
-        <main className="p-6 min-h-screen">
-          <div className="content-area p-6 min-h-[calc(100vh-140px)]">
-          {renderContent()}
+        {/* Content with sidebar margin and top padding for fixed header */}
+        <main className={`transition-all duration-300 pt-20 p-6 min-h-screen ${sidebarCollapsed ? 'ml-16' : 'ml-64'}`}>
+          <div className="content-area p-6 min-h-[calc(100vh-160px)]">
+            {renderContent()}
           </div>
         </main>
       </div>
