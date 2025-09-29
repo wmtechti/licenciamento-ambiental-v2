@@ -576,7 +576,8 @@ function AppContent() {
       </header>
 
       {/* Dashboard - Sidebar + Conteúdo Principal lado a lado */}
-      <div className="flex-1 flex overflow-hidden p-6 gap-6">
+      <div className="flex-1 flex overflow-hidden p-6">
+        <div className="flex gap-6 w-full max-w-7xl mx-auto">
         {/* Sidebar */}
         <div className={`sidebar-nav shadow-lg flex-shrink-0 transition-all duration-300 ${
           sidebarCollapsed ? 'w-16' : 'w-64'
@@ -643,6 +644,7 @@ function AppContent() {
               {renderContent()}
             </div>
           </main>
+        </div>
         </div>
       </div>
 
