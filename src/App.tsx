@@ -163,9 +163,10 @@ function AppContent() {
             }
           </p>
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 text-left">
-            <h3 className="font-medium text-blue-900 mb-3">Passo a passo para configurar:</h3>
+            <h3 className="font-medium text-blue-900 mb-3">📋 Passo a passo para configurar:</h3>
             <ol className="text-sm text-blue-800 space-y-2">
-              <li><strong>1.</strong> Acesse <a href="https://supabase.com/dashboard" target=\"_blank\" className="text-blue-600 underline">https://supabase.com/dashboard</a></li>
+              <li><strong>1.</strong> Acesse <a href="https://supabase.com/dashboard" target=
+                                               "_blank\" className="text-blue-600 underline">https://supabase.com/dashboard</a></li>
               <li><strong>2.</strong> Crie um novo projeto ou selecione um existente</li>
               <li><strong>3.</strong> Vá em Settings → API</li>
               <li><strong>4.</strong> Copie a "Project URL" e "anon public" key</li>
@@ -525,28 +526,28 @@ function AppContent() {
   };
 
   return (
-    <div className="h-screen flex overflow-hidden">
+    <div className="min-h-screen">
       {/* Sidebar */}
-      <div className={`sidebar-nav shadow-lg lg:shadow-none lg:border-r lg:border-gray-200 flex-shrink-0 transition-all duration-300 ${
-        sidebarCollapsed ? 'w-0 lg:w-16' : 'w-64'
-      } ${sidebarCollapsed ? 'overflow-hidden' : ''}`}>
+      <div className={`fixed lg:static inset-y-0 left-0 sidebar-nav shadow-lg z-50 sidebar-transition lg:shadow-none lg:border-r lg:border-gray-200 ${
+        sidebarCollapsed ? 'w-16 lg:w-64' : 'w-64'
+      } ${sidebarCollapsed ? '-translate-x-full lg:translate-x-0' : 'translate-x-0'}`}>
         <div className="flex flex-col h-full">
           {/* Logo */}
-          <div className="flex items-center px-6 py-4 border-b border-gray-200 bg-white lg:bg-transparent flex-shrink-0">
+          <div className="flex items-center px-6 py-4 border-b border-gray-200 bg-white lg:bg-transparent">
             <div className="flex items-center justify-between w-full">
               <div className="flex items-center">
                 <div className="w-8 h-8 bg-green-600 rounded-lg flex items-center justify-center">
                   <Shield className="w-5 h-5 text-white" />
                 </div>
-                {!sidebarCollapsed && (
+                {(!sidebarCollapsed || window.innerWidth >= 1024) && (
                   <div className="ml-3">
                     <h1 className="text-lg font-bold text-gray-900">Painel</h1>
                     <p className="text-xs text-gray-500">Licenciamento Ambiental</p>
                   </div>
                 )}
               </div>
-              {/* Botão de colapsar */}
-              <div>
+              {/* Botão de colapsar apenas em mobile */}
+              <div className="lg:hidden">
                 <button
                   onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
                   className="p-1 text-gray-400 hover:text-gray-600 transition-colors"
@@ -563,7 +564,7 @@ function AppContent() {
           </div>
 
           {/* Navigation */}
-          <nav className="flex-1 px-4 py-6 space-y-1 overflow-y-auto">
+          <nav className="flex-1 px-4 py-6 space-y-1">
             {navigation.map((item) => {
               const Icon = item.icon;
               return (
@@ -575,25 +576,25 @@ function AppContent() {
                       ? 'active text-green-700'
                       : 'text-gray-600 hover:text-gray-900'
                   }`}
-                  title={sidebarCollapsed ? item.name : undefined}
+                  title={(sidebarCollapsed && window.innerWidth < 1024) ? item.name : undefined}
                 >
-                  <Icon className={`w-5 h-5 flex-shrink-0 ${!sidebarCollapsed ? 'mr-3' : ''} ${
+                  <Icon className={`w-5 h-5 flex-shrink-0 ${(!sidebarCollapsed || window.innerWidth >= 1024) ? 'mr-3' : ''} ${
                     activeTab === item.id ? 'text-green-600' : ''
                   }`} />
-                  {!sidebarCollapsed && item.name}
+                  {(!sidebarCollapsed || window.innerWidth >= 1024) && item.name}
                 </button>
               );
             })}
           </nav>
 
-          {/* User Profile - pode ser adicionado aqui se necessário */}
+          {/* User Profile */}
         </div>
       </div>
 
-      {/* Main Content Container - ocupa o restante do espaço */}
-      <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
+      {/* Main Content */}
+      <div className="flex flex-col">
         {/* Header */}
-        <header className="dark-header flex-shrink-0">
+        <header className="dark-header fixed top-0 left-0 right-0 z-40">
           <div className="px-6 py-4 flex justify-between items-center">
             <div className="flex items-center space-x-4">
               <h2 className="text-sm text-gray-300">
@@ -633,12 +634,22 @@ function AppContent() {
           </div>
         </header>
 
-        {/* Main Content Area */}
-        <main className="flex-1 overflow-auto">
-          <div className="p-6">
+        {/* Content with responsive sidebar margin and top padding for fixed header */}
+        <main className={`transition-all duration-300 pt-20 p-6 min-h-screen lg:ml-64 ${
+          sidebarCollapsed ? 'ml-0' : 'ml-64 lg:ml-64'
+        }`}>
+          <div className="content-area p-6 min-h-[calc(100vh-160px)]">
             {renderContent()}
           </div>
         </main>
+
+        {/* Overlay para mobile quando sidebar está aberto */}
+        {!sidebarCollapsed && (
+          <div 
+            className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
+            onClick={() => setSidebarCollapsed(true)}
+          />
+        )}
       </div>
 
       {/* Modals */}
