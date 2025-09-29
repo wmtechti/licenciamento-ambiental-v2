@@ -526,118 +526,133 @@ function AppContent() {
   };
 
   return (
-    <div className="h-screen flex">
-      {/* Sidebar */}
-      <div className={`sidebar-nav shadow-lg border-r border-gray-200 flex-shrink-0 ${
-        sidebarCollapsed ? 'w-16' : 'w-64'
-      }`}>
-        <div className="flex flex-col h-full">
-          {/* Logo */}
-          <div className="flex items-center px-6 py-4 border-b border-gray-200">
-            <div className="flex items-center justify-between w-full">
-              <div className="flex items-center">
-                <div className="w-8 h-8 bg-green-600 rounded-lg flex items-center justify-center">
-                  <Shield className="w-5 h-5 text-white" />
-                </div>
-                {!sidebarCollapsed && (
-                  <div className="ml-3">
-                    <h1 className="text-lg font-bold text-gray-900">Painel</h1>
-                    <p className="text-xs text-gray-500">Licenciamento Ambiental</p>
-                  </div>
-                )}
-              </div>
-              <button
-                onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-                className="p-1 text-gray-400 hover:text-gray-600 transition-colors"
-                title={sidebarCollapsed ? 'Expandir menu' : 'Recolher menu'}
-              >
-                {sidebarCollapsed ? (
-                  <Menu className="w-5 h-5" />
-                ) : (
-                  <ChevronLeft className="w-5 h-5" />
-                )}
-              </button>
-            </div>
+    <div className="h-screen flex flex-col">
+      {/* Header - Ocupa toda a largura da tela */}
+      <header className="dark-header flex-shrink-0">
+        <div className="px-6 py-4 flex justify-between items-center">
+          <div className="flex items-center space-x-4">
+            <button
+              onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
+              className="p-2 text-gray-300 hover:text-white transition-colors lg:hidden"
+              title={sidebarCollapsed ? 'Expandir menu' : 'Recolher menu'}
+            >
+              <Menu className="w-5 h-5" />
+            </button>
+            <h2 className="text-sm text-gray-300">
+              Sistema de Licenciamento Ambiental - Baseado na Legislação Brasileira
+            </h2>
           </div>
+          <div className="flex items-center space-x-4">
+            <button className="p-2 text-gray-300 hover:text-white transition-colors">
+              <Bell className="w-5 h-5" />
+            </button>
+            
+            {/* User Info */}
+            <div className="flex items-center space-x-3">
+              <div className="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center user-avatar">
+                <span className="text-white text-sm font-medium">
+                  {userMetadata?.name?.charAt(0).toUpperCase() || user?.email?.charAt(0).toUpperCase() || 'U'}
+                </span>
+              </div>
+              <div className="text-right">
+                <p className="text-sm font-medium text-white">{userMetadata?.name || user?.email}</p>
+                <p className="text-xs text-gray-300">{userMetadata?.role || 'Usuário'}</p>
+              </div>
+            </div>
+            
+            <button className="p-2 text-gray-300 hover:text-white transition-colors">
+              <Settings className="w-5 h-5" />
+            </button>
+            
+            <button
+              onClick={handleSignOut}
+              className="p-2 text-gray-300 hover:text-white transition-colors"
+              title="Sair"
+            >
+              <LogOut className="w-5 h-5" />
+            </button>
+          </div>
+        </div>
+      </header>
 
-          {/* Navigation */}
-          <nav className="flex-1 px-4 py-6 space-y-1">
-            {navigation.map((item) => {
-              const Icon = item.icon;
-              return (
+      {/* Dashboard - Sidebar + Conteúdo Principal lado a lado */}
+      <div className="flex-1 flex overflow-hidden">
+        {/* Sidebar */}
+        <div className={`sidebar-nav shadow-lg border-r border-gray-200 flex-shrink-0 transition-all duration-300 ${
+          sidebarCollapsed ? 'w-16' : 'w-64'
+        } ${sidebarCollapsed ? 'lg:w-16' : 'lg:w-64'}`}>
+          <div className="flex flex-col h-full">
+            {/* Logo */}
+            <div className="flex items-center px-6 py-4 border-b border-gray-200">
+              <div className="flex items-center justify-between w-full">
+                <div className="flex items-center">
+                  <div className="w-8 h-8 bg-green-600 rounded-lg flex items-center justify-center">
+                    <Shield className="w-5 h-5 text-white" />
+                  </div>
+                  {!sidebarCollapsed && (
+                    <div className="ml-3">
+                      <h1 className="text-lg font-bold text-gray-900">Painel</h1>
+                      <p className="text-xs text-gray-500">Licenciamento Ambiental</p>
+                    </div>
+                  )}
+                </div>
                 <button
-                  key={item.id}
-                  onClick={() => setActiveTab(item.id)}
-                  className={`w-full flex items-center px-3 py-3 rounded-lg text-sm font-medium nav-item ${
-                    activeTab === item.id
-                      ? 'active text-green-700'
-                      : 'text-gray-600 hover:text-gray-900'
-                  }`}
-                  title={sidebarCollapsed ? item.name : undefined}
+                  onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
+                  className="p-1 text-gray-400 hover:text-gray-600 transition-colors hidden lg:block"
+                  title={sidebarCollapsed ? 'Expandir menu' : 'Recolher menu'}
                 >
-                  <Icon className={`w-5 h-5 flex-shrink-0 ${!sidebarCollapsed ? 'mr-3' : ''} ${
-                    activeTab === item.id ? 'text-green-600' : ''
-                  }`} />
-                  {!sidebarCollapsed && item.name}
+                  {sidebarCollapsed ? (
+                    <Menu className="w-5 h-5" />
+                  ) : (
+                    <ChevronLeft className="w-5 h-5" />
+                  )}
                 </button>
-              );
-            })}
-          </nav>
+              </div>
+            </div>
 
-          {/* User Profile */}
+            {/* Navigation */}
+            <nav className="flex-1 px-4 py-6 space-y-1">
+              {navigation.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <button
+                    key={item.id}
+                    onClick={() => setActiveTab(item.id)}
+                    className={`w-full flex items-center px-3 py-3 rounded-lg text-sm font-medium nav-item ${
+                      activeTab === item.id
+                        ? 'active text-green-700'
+                        : 'text-gray-600 hover:text-gray-900'
+                    }`}
+                    title={sidebarCollapsed ? item.name : undefined}
+                  >
+                    <Icon className={`w-5 h-5 flex-shrink-0 ${!sidebarCollapsed ? 'mr-3' : ''} ${
+                      activeTab === item.id ? 'text-green-600' : ''
+                    }`} />
+                    {!sidebarCollapsed && item.name}
+                  </button>
+                );
+              })}
+            </nav>
+          </div>
+        </div>
+
+        {/* Conteúdo Principal - Ao lado da sidebar */}
+        <div className="flex-1 flex flex-col overflow-hidden">
+          <main className="flex-1 overflow-auto">
+            <div className="content-area p-6 h-full">
+              {renderContent()}
+            </div>
+          </main>
         </div>
       </div>
 
-      {/* Main Content Area */}
-      <div className="flex-1 flex flex-col overflow-hidden">
-        {/* Header */}
-        <header className="dark-header flex-shrink-0">
-          <div className="px-6 py-4 flex justify-between items-center">
-            <div className="flex items-center space-x-4">
-              <h2 className="text-sm text-gray-300">
-                Sistema de Licenciamento Ambiental - Baseado na Legislação Brasileira
-              </h2>
-            </div>
-            <div className="flex items-center space-x-4">
-              <button className="p-2 text-gray-300 hover:text-white transition-colors">
-                <Bell className="w-5 h-5" />
-              </button>
-              
-              {/* User Info */}
-              <div className="flex items-center space-x-3">
-                <div className="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center user-avatar">
-                  <span className="text-white text-sm font-medium">
-                    {userMetadata?.name?.charAt(0).toUpperCase() || user?.email?.charAt(0).toUpperCase() || 'U'}
-                  </span>
-                </div>
-                <div className="text-right">
-                  <p className="text-sm font-medium text-white">{userMetadata?.name || user?.email}</p>
-                  <p className="text-xs text-gray-300">{userMetadata?.role || 'Usuário'}</p>
-                </div>
-              </div>
-              
-              <button className="p-2 text-gray-300 hover:text-white transition-colors">
-                <Settings className="w-5 h-5" />
-              </button>
-              
-              <button
-                onClick={handleSignOut}
-                className="p-2 text-gray-300 hover:text-white transition-colors"
-                title="Sair"
-              >
-                <LogOut className="w-5 h-5" />
-              </button>
-            </div>
-          </div>
-        </header>
-
-        {/* Main Content */}
-        <main className="flex-1 overflow-auto">
-          <div className="content-area p-6 h-full">
-            {renderContent()}
-          </div>
-        </main>
-      </div>
+      {/* Mobile Sidebar Overlay */}
+      {!sidebarCollapsed && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
+          onClick={() => setSidebarCollapsed(true)}
+        />
+      )}
 
       {/* Modals */}
       <NewProcessModal
