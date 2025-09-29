@@ -525,9 +525,9 @@ function AppContent() {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen flex">
       {/* Sidebar */}
-      <div className={`fixed lg:static inset-y-0 left-0 sidebar-nav shadow-lg z-50 sidebar-transition lg:shadow-none lg:border-r lg:border-gray-200 ${
+      <div className={`fixed lg:static inset-y-0 left-0 sidebar-nav shadow-lg z-50 sidebar-transition lg:shadow-none lg:border-r lg:border-gray-200 flex-shrink-0 ${
         sidebarCollapsed ? 'w-16 lg:w-64' : 'w-64'
       } ${sidebarCollapsed ? '-translate-x-full lg:translate-x-0' : 'translate-x-0'}`}>
         <div className="flex flex-col h-full">
@@ -590,12 +590,19 @@ function AppContent() {
         </div>
       </div>
 
-      {/* Main Content */}
-      <div className="flex flex-col lg:ml-64">
+      {/* Main Content Container */}
+      <div className="flex-1 flex flex-col min-w-0">
         {/* Header */}
-        <header className="dark-header fixed top-0 left-0 right-0 z-40">
-          <div className="px-6 py-4 flex justify-between items-center">
+        <header className="dark-header flex-shrink-0 z-40">
+          <div className="px-6 py-4 flex justify-between items-center lg:pl-6">
             <div className="flex items-center space-x-4">
+              {/* Mobile menu button */}
+              <button
+                onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
+                className="lg:hidden p-2 text-gray-300 hover:text-white transition-colors"
+              >
+                <Menu className="w-5 h-5" />
+              </button>
               <h2 className="text-sm text-gray-300">
                 Sistema de Licenciamento Ambiental - Baseado na Legislação Brasileira
               </h2>
@@ -633,23 +640,22 @@ function AppContent() {
           </div>
         </header>
 
-        {/* Content with responsive sidebar margin and top padding for fixed header */}
-        <main className={`transition-all duration-300 pt-20 p-6 min-h-screen ${
-          sidebarCollapsed ? 'ml-0 lg:ml-0' : 'ml-64 lg:ml-0'
-        }`}>
-          <div className="content-area p-6 min-h-[calc(100vh-160px)]">
+        {/* Main Content Area */}
+        <main className="flex-1 p-6 overflow-auto">
+          <div className="content-area p-6 h-full">
             {renderContent()}
           </div>
         </main>
 
-        {/* Overlay para mobile quando sidebar está aberto */}
-        {!sidebarCollapsed && (
-          <div 
-            className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
-            onClick={() => setSidebarCollapsed(true)}
-          />
-        )}
       </div>
+
+      {/* Overlay para mobile quando sidebar está aberto */}
+      {!sidebarCollapsed && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
+          onClick={() => setSidebarCollapsed(true)}
+        />
+      )}
 
       {/* Modals */}
       <NewProcessModal
