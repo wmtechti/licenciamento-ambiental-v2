@@ -592,7 +592,7 @@ function AppContent() {
       </div>
 
       {/* Main Content */}
-      <div className="flex flex-col">
+      <div className="flex flex-col lg:ml-64">
         {/* Header */}
         <header className="dark-header fixed top-0 left-0 right-0 z-40">
           <div className="px-6 py-4 flex justify-between items-center">
@@ -635,8 +635,8 @@ function AppContent() {
         </header>
 
         {/* Content with responsive sidebar margin and top padding for fixed header */}
-        <main className={`transition-all duration-300 pt-20 p-6 min-h-screen lg:ml-64 ${
-          sidebarCollapsed ? 'ml-0' : 'ml-64 lg:ml-64'
+        <main className={`transition-all duration-300 pt-20 p-6 min-h-screen ${
+          sidebarCollapsed ? 'ml-0 lg:ml-0' : 'ml-64 lg:ml-0'
         }`}>
           <div className="content-area p-6 min-h-[calc(100vh-160px)]">
             {renderContent()}
