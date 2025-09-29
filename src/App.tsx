@@ -525,28 +525,28 @@ function AppContent() {
   };
 
   return (
-    <div className="min-h-screen flex">
+    <div className="h-screen flex overflow-hidden">
       {/* Sidebar */}
-      <div className={`fixed lg:static inset-y-0 left-0 sidebar-nav shadow-lg z-50 sidebar-transition lg:shadow-none lg:border-r lg:border-gray-200 flex-shrink-0 ${
-        sidebarCollapsed ? 'w-16 lg:w-64' : 'w-64'
-      } ${sidebarCollapsed ? '-translate-x-full lg:translate-x-0' : 'translate-x-0'}`}>
+      <div className={`sidebar-nav shadow-lg lg:shadow-none lg:border-r lg:border-gray-200 flex-shrink-0 transition-all duration-300 ${
+        sidebarCollapsed ? 'w-0 lg:w-16' : 'w-64'
+      } ${sidebarCollapsed ? 'overflow-hidden' : ''}`}>
         <div className="flex flex-col h-full">
           {/* Logo */}
-          <div className="flex items-center px-6 py-4 border-b border-gray-200 bg-white lg:bg-transparent">
+          <div className="flex items-center px-6 py-4 border-b border-gray-200 bg-white lg:bg-transparent flex-shrink-0">
             <div className="flex items-center justify-between w-full">
               <div className="flex items-center">
                 <div className="w-8 h-8 bg-green-600 rounded-lg flex items-center justify-center">
                   <Shield className="w-5 h-5 text-white" />
                 </div>
-                {(!sidebarCollapsed || window.innerWidth >= 1024) && (
+                {!sidebarCollapsed && (
                   <div className="ml-3">
                     <h1 className="text-lg font-bold text-gray-900">Painel</h1>
                     <p className="text-xs text-gray-500">Licenciamento Ambiental</p>
                   </div>
                 )}
               </div>
-              {/* Botão de colapsar apenas em mobile */}
-              <div className="lg:hidden">
+              {/* Botão de colapsar */}
+              <div>
                 <button
                   onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
                   className="p-1 text-gray-400 hover:text-gray-600 transition-colors"
@@ -563,7 +563,7 @@ function AppContent() {
           </div>
 
           {/* Navigation */}
-          <nav className="flex-1 px-4 py-6 space-y-1">
+          <nav className="flex-1 px-4 py-6 space-y-1 overflow-y-auto">
             {navigation.map((item) => {
               const Icon = item.icon;
               return (
@@ -575,34 +575,27 @@ function AppContent() {
                       ? 'active text-green-700'
                       : 'text-gray-600 hover:text-gray-900'
                   }`}
-                  title={(sidebarCollapsed && window.innerWidth < 1024) ? item.name : undefined}
+                  title={sidebarCollapsed ? item.name : undefined}
                 >
-                  <Icon className={`w-5 h-5 flex-shrink-0 ${(!sidebarCollapsed || window.innerWidth >= 1024) ? 'mr-3' : ''} ${
+                  <Icon className={`w-5 h-5 flex-shrink-0 ${!sidebarCollapsed ? 'mr-3' : ''} ${
                     activeTab === item.id ? 'text-green-600' : ''
                   }`} />
-                  {(!sidebarCollapsed || window.innerWidth >= 1024) && item.name}
+                  {!sidebarCollapsed && item.name}
                 </button>
               );
             })}
           </nav>
 
-          {/* User Profile */}
+          {/* User Profile - pode ser adicionado aqui se necessário */}
         </div>
       </div>
 
-      {/* Main Content Container */}
-      <div className="flex-1 flex flex-col min-w-0">
+      {/* Main Content Container - ocupa o restante do espaço */}
+      <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
         {/* Header */}
-        <header className="dark-header flex-shrink-0 z-40">
-          <div className="px-6 py-4 flex justify-between items-center lg:pl-6">
+        <header className="dark-header flex-shrink-0">
+          <div className="px-6 py-4 flex justify-between items-center">
             <div className="flex items-center space-x-4">
-              {/* Mobile menu button */}
-              <button
-                onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-                className="lg:hidden p-2 text-gray-300 hover:text-white transition-colors"
-              >
-                <Menu className="w-5 h-5" />
-              </button>
               <h2 className="text-sm text-gray-300">
                 Sistema de Licenciamento Ambiental - Baseado na Legislação Brasileira
               </h2>
@@ -641,21 +634,12 @@ function AppContent() {
         </header>
 
         {/* Main Content Area */}
-        <main className="flex-1 p-6 overflow-auto">
-          <div className="content-area p-6 h-full">
+        <main className="flex-1 overflow-auto">
+          <div className="p-6">
             {renderContent()}
           </div>
         </main>
-
       </div>
-
-      {/* Overlay para mobile quando sidebar está aberto */}
-      {!sidebarCollapsed && (
-        <div 
-          className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
-          onClick={() => setSidebarCollapsed(true)}
-        />
-      )}
 
       {/* Modals */}
       <NewProcessModal
