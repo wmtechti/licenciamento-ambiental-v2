@@ -528,35 +528,38 @@ function AppContent() {
   return (
     <div className="min-h-screen">
       {/* Sidebar */}
-      <div className={`fixed inset-y-0 left-0 sidebar-nav shadow-lg z-50 sidebar-transition ${
-        sidebarCollapsed ? 'w-16' : 'w-64'
-      }`}>
+      <div className={`fixed lg:static inset-y-0 left-0 sidebar-nav shadow-lg z-50 sidebar-transition lg:shadow-none lg:border-r lg:border-gray-200 ${
+        sidebarCollapsed ? 'w-16 lg:w-64' : 'w-64'
+      } ${sidebarCollapsed ? '-translate-x-full lg:translate-x-0' : 'translate-x-0'}`}>
         <div className="flex flex-col h-full">
           {/* Logo */}
-          <div className="flex items-center px-6 py-4 border-b border-gray-200 bg-white">
+          <div className="flex items-center px-6 py-4 border-b border-gray-200 bg-white lg:bg-transparent">
             <div className="flex items-center justify-between w-full">
               <div className="flex items-center">
                 <div className="w-8 h-8 bg-green-600 rounded-lg flex items-center justify-center">
                   <Shield className="w-5 h-5 text-white" />
                 </div>
-                {!sidebarCollapsed && (
+                {(!sidebarCollapsed || window.innerWidth >= 1024) && (
                   <div className="ml-3">
                     <h1 className="text-lg font-bold text-gray-900">Painel</h1>
                     <p className="text-xs text-gray-500">Licenciamento Ambiental</p>
                   </div>
                 )}
               </div>
-              <button
-                onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-                className="p-1 text-gray-400 hover:text-gray-600 transition-colors"
-                title={sidebarCollapsed ? 'Expandir menu' : 'Recolher menu'}
-              >
-                {sidebarCollapsed ? (
-                  <Menu className="w-5 h-5" />
-                ) : (
-                  <ChevronLeft className="w-5 h-5" />
-                )}
-              </button>
+              {/* Botão de colapsar apenas em mobile */}
+              <div className="lg:hidden">
+                <button
+                  onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
+                  className="p-1 text-gray-400 hover:text-gray-600 transition-colors"
+                  title={sidebarCollapsed ? 'Expandir menu' : 'Recolher menu'}
+                >
+                  {sidebarCollapsed ? (
+                    <Menu className="w-5 h-5" />
+                  ) : (
+                    <ChevronLeft className="w-5 h-5" />
+                  )}
+                </button>
+              </div>
             </div>
           </div>
 
@@ -573,12 +576,12 @@ function AppContent() {
                       ? 'active text-green-700'
                       : 'text-gray-600 hover:text-gray-900'
                   }`}
-                  title={sidebarCollapsed ? item.name : undefined}
+                  title={(sidebarCollapsed && window.innerWidth < 1024) ? item.name : undefined}
                 >
-                  <Icon className={`w-5 h-5 flex-shrink-0 ${!sidebarCollapsed ? 'mr-3' : ''} ${
+                  <Icon className={`w-5 h-5 flex-shrink-0 ${(!sidebarCollapsed || window.innerWidth >= 1024) ? 'mr-3' : ''} ${
                     activeTab === item.id ? 'text-green-600' : ''
                   }`} />
-                  {!sidebarCollapsed && item.name}
+                  {(!sidebarCollapsed || window.innerWidth >= 1024) && item.name}
                 </button>
               );
             })}
@@ -631,12 +634,22 @@ function AppContent() {
           </div>
         </header>
 
-        {/* Content with sidebar margin and top padding for fixed header */}
-        <main className={`transition-all duration-300 pt-20 p-6 min-h-screen ${sidebarCollapsed ? 'ml-16' : 'ml-64'}`}>
+        {/* Content with responsive sidebar margin and top padding for fixed header */}
+        <main className={`transition-all duration-300 pt-20 p-6 min-h-screen lg:ml-64 ${
+          sidebarCollapsed ? 'ml-0' : 'ml-64 lg:ml-64'
+        }`}>
           <div className="content-area p-6 min-h-[calc(100vh-160px)]">
             {renderContent()}
           </div>
         </main>
+
+        {/* Overlay para mobile quando sidebar está aberto */}
+        {!sidebarCollapsed && (
+          <div 
+            className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
+            onClick={() => setSidebarCollapsed(true)}
+          />
+        )}
       </div>
 
       {/* Modals */}
