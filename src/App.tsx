@@ -163,7 +163,7 @@ function AppContent() {
             }
           </p>
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 text-left">
-            <h3 className="font-medium text-blue-900 mb-3">📋 Passo a passo para configurar:</h3>
+            <h3 className="font-medium text-blue-900 mb-3">Passo a passo para configurar:</h3>
             <ol className="text-sm text-blue-800 space-y-2">
               <li><strong>1.</strong> Acesse <a href="https://supabase.com/dashboard" target="_blank\" className="text-blue-600 underline">https://supabase.com/dashboard</a></li>
               <li><strong>2.</strong> Crie um novo projeto ou selecione um existente</li>
