@@ -27,6 +27,7 @@ import {
   ChevronLeft
 } from 'lucide-react';
 import GeoVisualization from './components/geo/GeoVisualization';
+import treeIcon from '/src/assets/tree_icon_menu.svg'
 
 function AppContent() {
   const { user, userMetadata, signOut, loading, isConfigured, isSupabaseReady } = useAuth();
@@ -631,7 +632,7 @@ function AppContent() {
                     title={sidebarCollapsed ? item.name : undefined}
                   >
                     <img
-                      src="/src/assets/tree_icon_menu.svg"
+                      src={treeIcon}
                       alt={item.name}
                       className={`w-5 h-5 flex-shrink-0 ${!sidebarCollapsed ? 'mr-3' : ''}`}
                     />
