@@ -538,6 +538,11 @@ function AppContent() {
             >
               <Menu className="w-5 h-5" />
             </button>
+            <img
+              src="/logo.png"
+              alt="Logo"
+              className="h-10 w-10 object-contain"
+            />
             <h2 className="text-sm text-gray-300">
               Sistema de Licenciamento Ambiental - Baseado na Legislação Brasileira
             </h2>
