@@ -619,7 +619,6 @@ function AppContent() {
             {/* Navigation */}
             <nav className="flex-1 px-4 py-6 space-y-1">
               {navigation.map((item) => {
-                const Icon = item.icon;
                 return (
                   <button
                     key={item.id}
@@ -631,9 +630,11 @@ function AppContent() {
                     }`}
                     title={sidebarCollapsed ? item.name : undefined}
                   >
-                    <Icon className={`w-5 h-5 flex-shrink-0 ${!sidebarCollapsed ? 'mr-3' : ''} ${
-                      activeTab === item.id ? 'text-green-600' : ''
-                    }`} />
+                    <img
+                      src="/src/assets/tree_icon_menu.svg"
+                      alt={item.name}
+                      className={`w-5 h-5 flex-shrink-0 ${!sidebarCollapsed ? 'mr-3' : ''}`}
+                    />
                     {!sidebarCollapsed && item.name}
                   </button>
                 );
