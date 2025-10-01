@@ -575,6 +575,12 @@ function AppContent() {
               <LogOut className="w-5 h-5" />
               <span className="text-sm font-medium">Sair</span>
             </button>
+
+            <div className="h-8 w-px bg-gray-600"></div>
+
+            <span className="text-sm font-medium text-white">
+              {userMetadata?.name?.split(' ')[0] || user?.email?.split('@')[0] || 'Usuário'}
+            </span>
           </div>
         </div>
       </header>
