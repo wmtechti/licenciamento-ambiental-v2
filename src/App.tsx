@@ -567,33 +567,13 @@ function AppContent() {
             </h2>
           </div>
           <div className="flex items-center space-x-4">
-            <button className="p-2 text-gray-300 hover:text-white transition-colors">
-              <Bell className="w-5 h-5" />
-            </button>
-            
-            {/* User Info */}
-            <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center user-avatar">
-                <span className="text-white text-sm font-medium">
-                  {userMetadata?.name?.charAt(0).toUpperCase() || user?.email?.charAt(0).toUpperCase() || 'U'}
-                </span>
-              </div>
-              <div className="text-right">
-                <p className="text-sm font-medium text-white">{userMetadata?.name || user?.email}</p>
-                <p className="text-xs text-gray-300">{userMetadata?.role || 'Usuário'}</p>
-              </div>
-            </div>
-            
-            <button className="p-2 text-gray-300 hover:text-white transition-colors">
-              <Settings className="w-5 h-5" />
-            </button>
-            
             <button
               onClick={handleSignOut}
-              className="p-2 text-gray-300 hover:text-white transition-colors"
+              className="flex items-center space-x-2 px-4 py-2 text-gray-300 hover:text-white transition-colors rounded-lg hover:bg-gray-700"
               title="Sair"
             >
               <LogOut className="w-5 h-5" />
+              <span className="text-sm font-medium">Sair</span>
             </button>
           </div>
         </div>
