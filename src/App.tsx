@@ -28,11 +28,13 @@ import {
 } from 'lucide-react';
 import GeoVisualization from './components/geo/GeoVisualization';
 import treeIcon from '/src/assets/tree_icon_menu.svg'
+import arrowIcon from '/src/assets/arrow.svg'
 
 function AppContent() {
   const { user, userMetadata, signOut, loading, isConfigured, isSupabaseReady } = useAuth();
   const [activeTab, setActiveTab] = useState('dashboard');
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [adminExpanded, setAdminExpanded] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterStatus, setFilterStatus] = useState('all');
   const [showNewProcessModal, setShowNewProcessModal] = useState(false);
@@ -167,7 +169,7 @@ function AppContent() {
             <h3 className="font-medium text-blue-900 mb-3">📋 Passo a passo para configurar:</h3>
             <ol className="text-sm text-blue-800 space-y-2">
               <li><strong>1.</strong> Acesse <a href="https://supabase.com/dashboard" target=
-                                                "_blank\" className="text-blue-600 underline">https://supabase.com/dashboard</a></li>
+                                                "_blank\" className=\"text-blue-600 underline">https://supabase.com/dashboard</a></li>
               <li><strong>2.</strong> Crie um novo projeto ou selecione um existente</li>
               <li><strong>3.</strong> Vá em Settings → API</li>
               <li><strong>4.</strong> Copie a "Project URL" e "anon public" key</li>
@@ -258,8 +260,20 @@ function AppContent() {
     { id: 'companies', name: 'Empresas', icon: Building2 },
     { id: 'reports', name: 'Relatórios', icon: BarChart3 },
     { id: 'compliance', name: 'Conformidade', icon: Shield },
-    { id: 'geo', name: 'Visualização Geo', icon: MapPin },
-    { id: 'admin', name: 'Administração', icon: Settings }
+    { id: 'geo', name: 'Visualização Geo', icon: MapPin }
+  ];
+
+  const adminSubSections = [
+    { id: 'property-types', name: 'Tipos de Imóvel' },
+    { id: 'process-types', name: 'Tipos de Processo' },
+    { id: 'license-types', name: 'Tipos de Licença' },
+    { id: 'activities', name: 'Atividades' },
+    { id: 'enterprise-sizes', name: 'Porte do Empreendimento' },
+    { id: 'pollution-potentials', name: 'Potencial Poluidor' },
+    { id: 'reference-units', name: 'Unidades de Referência' },
+    { id: 'study-types', name: 'Tipos de Estudo' },
+    { id: 'documentation-templates', name: 'Documentação' },
+    { id: 'billing-configurations', name: 'Configuração de Cobrança' }
   ];
 
   const renderDashboard = () => (
@@ -516,13 +530,17 @@ function AppContent() {
         </div>
       );
       case 'geo': return (
-        <GeoVisualization 
-          processes={processes} 
-          companies={[]} 
+        <GeoVisualization
+          processes={processes}
+          companies={[]}
         />
       );
-      case 'admin': return <AdminDashboard />;
-      default: return renderDashboard();
+      default:
+        if (activeTab.startsWith('admin-')) {
+          const adminSection = activeTab.replace('admin-', '');
+          return <AdminDashboard initialSection={adminSection} />;
+        }
+        return renderDashboard();
     }
   };
 
@@ -640,6 +658,56 @@ function AppContent() {
                   </button>
                 );
               })}
+
+              {/* Admin Accordion */}
+              <div>
+                <button
+                  onClick={() => setAdminExpanded(!adminExpanded)}
+                  className={`w-full flex items-center justify-between px-3 py-3 rounded-lg text-sm font-medium nav-item ${
+                    activeTab.startsWith('admin')
+                      ? 'active text-green-700'
+                      : 'text-gray-600 hover:text-gray-900'
+                  }`}
+                  title={sidebarCollapsed ? 'Administração' : undefined}
+                >
+                  <div className="flex items-center">
+                    <img
+                      src={treeIcon}
+                      alt="Administração"
+                      className={`w-5 h-5 flex-shrink-0 ${!sidebarCollapsed ? 'mr-3' : ''}`}
+                    />
+                    {!sidebarCollapsed && 'Administração'}
+                  </div>
+                  {!sidebarCollapsed && (
+                    <img
+                      src={arrowIcon}
+                      alt="Toggle"
+                      className={`w-4 h-4 transition-transform duration-200 ${
+                        adminExpanded ? 'rotate-90' : ''
+                      }`}
+                    />
+                  )}
+                </button>
+
+                {/* Admin Submenu */}
+                {!sidebarCollapsed && adminExpanded && (
+                  <div className="mt-1 space-y-1 pl-8">
+                    {adminSubSections.map((subItem) => (
+                      <button
+                        key={subItem.id}
+                        onClick={() => setActiveTab(`admin-${subItem.id}`)}
+                        className={`w-full flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                          activeTab === `admin-${subItem.id}`
+                            ? 'bg-green-100 text-green-700 border border-green-200'
+                            : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
+                        }`}
+                      >
+                        {subItem.name}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
             </nav>
           </div>
         </div>

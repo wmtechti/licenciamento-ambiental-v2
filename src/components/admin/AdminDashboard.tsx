@@ -317,11 +317,19 @@ const entityConfigs = {
   }
 };
 
-export default function AdminDashboard() {
-  const [activeSection, setActiveSection] = useState('property-types');
+interface AdminDashboardProps {
+  initialSection?: string;
+}
+
+export default function AdminDashboard({ initialSection = 'property-types' }: AdminDashboardProps) {
+  const [activeSection, setActiveSection] = useState(initialSection);
   const [showForm, setShowForm] = useState(false);
   const [editingItem, setEditingItem] = useState(null);
   const [refreshKey, setRefreshKey] = useState(0);
+
+  React.useEffect(() => {
+    setActiveSection(initialSection);
+  }, [initialSection]);
 
   const currentConfig = entityConfigs[activeSection as keyof typeof entityConfigs];
 
