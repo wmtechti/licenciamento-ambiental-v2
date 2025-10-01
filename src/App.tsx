@@ -691,7 +691,7 @@ function AppContent() {
 
                 {/* Admin Submenu */}
                 {!sidebarCollapsed && adminExpanded && (
-                  <div className="mt-1 space-y-1 pl-8">
+                  <div className="mt-1 space-y-1 pl-8 max-h-64 overflow-y-auto">
                     {adminSubSections.map((subItem) => (
                       <button
                         key={subItem.id}
