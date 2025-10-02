@@ -1,17 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
-import {
-  Plus,
-  Search,
-  Edit,
-  Trash2,
-  Eye,
-  Filter,
-  ToggleLeft,
-  ToggleRight,
-  AlertTriangle,
-  X
-} from 'lucide-react';
+import { Plus, Search, CreditCard as Edit, Trash2, Eye, Filter, ToggleLeft, ToggleRight, AlertTriangle, X } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 
 interface Column {

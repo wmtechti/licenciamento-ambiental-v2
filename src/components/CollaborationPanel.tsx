@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { CollaborationService, type Collaborator, type CollaborationInvite } from '../services/collaborationService';
-import { Users, UserPlus, Mail, Shield, Trash2, Edit3, Eye, Crown, AlertCircle, Check, X } from 'lucide-react';
+import { Users, UserPlus, Mail, Shield, Trash2, CreditCard as Edit3, Eye, Crown, AlertCircle, Check, X } from 'lucide-react';
 
 interface CollaborationPanelProps {
   processId: string;
