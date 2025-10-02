@@ -439,9 +439,12 @@ function AppContent() {
 
       {/* Process List */}
       <div className="glass-effect rounded-lg">
-        <div className="p-6 border-b border-gray-200 border-opacity-50">
-          <h2 className="text-xl font-semibold text-gray-900">Lista de Processos</h2>
-        </div>
+        <h2
+          className="text-center bg-[#0c0c0c] leading-[33px] rounded-t-lg text-xl tracking-[3px] uppercase m-0 w-full block text-white"
+          style={{ textShadow: '1px 1px 2px rgb(22, 44, 6)' }}
+        >
+          Lista de Processos
+        </h2>
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead className="bg-gray-50">
