@@ -592,8 +592,8 @@ function AppContent() {
         <div className="flex gap-6 w-full mx-auto px-8">
         {/* Sidebar */}
         <div className={`sidebar-nav shadow-lg flex-shrink-0 transition-all duration-300 ${
-          sidebarCollapsed ? 'w-16' : 'w-64'
-        } ${sidebarCollapsed ? 'lg:w-16' : 'lg:w-64'}`}>
+          sidebarCollapsed ? 'w-16' : 'w-80'
+        } ${sidebarCollapsed ? 'lg:w-16' : 'lg:w-80'}`}>
           <div className="flex flex-col h-full">
             {/* Logo */}
             <div className="flex items-center px-6 py-4 border-b border-gray-200">
