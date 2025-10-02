@@ -171,7 +171,7 @@ function AppContent() {
             <h3 className="font-medium text-blue-900 mb-3">📋 Passo a passo para configurar:</h3>
             <ol className="text-sm text-blue-800 space-y-2">
               <li><strong>1.</strong> Acesse <a href="https://supabase.com/dashboard" target=
-                                                "_blank\" className=\"text-blue-600 underline">https://supabase.com/dashboard</a></li>
+                                                "_blank\" className="text-blue-600 underline">https://supabase.com/dashboard</a></li>
               <li><strong>2.</strong> Crie um novo projeto ou selecione um existente</li>
               <li><strong>3.</strong> Vá em Settings → API</li>
               <li><strong>4.</strong> Copie a "Project URL" e "anon public" key</li>
@@ -439,12 +439,9 @@ function AppContent() {
 
       {/* Process List */}
       <div className="glass-effect rounded-lg">
-        <h2
-          className="text-center bg-[#0c0c0c] leading-[33px] rounded-t-lg text-xl tracking-[3px] uppercase m-0 w-full block text-white"
-          style={{ textShadow: '1px 1px 2px rgb(22, 44, 6)' }}
-        >
-          Lista de Processos
-        </h2>
+        <div className="p-6 border-b border-gray-200 border-opacity-50">
+          <h2 className="text-xl font-semibold text-gray-900">Lista de Processos</h2>
+        </div>
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead className="bg-gray-50">

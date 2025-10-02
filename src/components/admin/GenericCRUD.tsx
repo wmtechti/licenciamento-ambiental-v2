@@ -180,7 +180,8 @@ export default function GenericCRUD({
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex justify-end items-center">
+      <div className="flex justify-between items-center">
+        <h1 className="text-2xl font-bold text-gray-900">{title}</h1>
         {canCreate && onCreate && (
           <button
             onClick={onCreate}
@@ -226,12 +227,6 @@ export default function GenericCRUD({
 
       {/* Table */}
       <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
-        <h2
-          className="text-center bg-[#0c0c0c] leading-[33px] rounded-t-lg text-xl tracking-[3px] uppercase m-0 w-full block text-white"
-          style={{ textShadow: '1px 1px 2px rgb(22, 44, 6)' }}
-        >
-          {title}
-        </h2>
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead className="bg-gray-50">
