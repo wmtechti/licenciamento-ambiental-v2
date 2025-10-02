@@ -5,9 +5,11 @@ import NewProcessModal from './components/NewProcessModal';
 import ProcessDetailsModal from './components/ProcessDetailsModal';
 import LoginModal from './components/LoginModal';
 import AdminDashboard from './components/admin/AdminDashboard';
-import { 
-  FileText, 
-  TrendingUp, 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import {
+  FileText,
+  TrendingUp,
   AlertTriangle,
   CheckCircle,
   Clock,
@@ -125,7 +127,7 @@ function AppContent() {
       }
     } catch (error) {
       console.error('Error updating process:', error);
-      alert('Erro ao atualizar processo: ' + (error as Error).message);
+      toast.error('Erro ao atualizar processo: ' + (error as Error).message);
     }
   };
 
@@ -729,6 +731,18 @@ function AppContent() {
         onClose={() => setShowProcessDetails(false)}
         process={selectedProcess}
         onUpdateProcess={handleUpdateProcess}
+      />
+
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
       />
     </div>
   );

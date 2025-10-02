@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { toast } from 'react-toastify';
 import AdminLayout from './AdminLayout';
 import GenericCRUD from './GenericCRUD';
 import GenericForm from './GenericForm';
@@ -374,7 +375,7 @@ export default function AdminDashboard({ initialSection = 'property-types' }: Ad
         return `${labels[key] || key}: ${formatValue(key, value)}`;
       })
       .join('\n');
-    alert(`Detalhes do Item:\n\n${details}`);
+    toast.info(details, { autoClose: 5000 });
   };
 
   const handleFormSave = () => {

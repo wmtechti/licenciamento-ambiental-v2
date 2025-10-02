@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { toast } from 'react-toastify';
 import { useAuth } from '../contexts/AuthContext';
 import { DocumentService } from '../services/documentService';
 import { CommentService } from '../services/commentService';
@@ -100,13 +101,13 @@ export default function ProcessDetailsModal({ isOpen, onClose, process, onUpdate
     
     if (!process?.id) {
       console.error('No process ID available');
-      alert('Erro: ID do processo não encontrado');
+      toast.error('Erro: ID do processo não encontrado');
       return;
     }
 
     if (!user?.id) {
       console.error('No user ID available');
-      alert('Erro: Usuário não autenticado');
+      toast.error('Erro: Usuário não autenticado');
       return;
     }
 
@@ -136,10 +137,10 @@ export default function ProcessDetailsModal({ isOpen, onClose, process, onUpdate
       
       console.log('All files uploaded, reloading documents...');
       await loadDocuments(); // Reload documents after upload
-      alert('Documentos enviados com sucesso!');
+      toast.success('Documentos enviados com sucesso!');
     } catch (error) {
       console.error('Error uploading documents:', error);
-      alert('Erro ao fazer upload dos documentos: ' + (error as Error).message);
+      toast.error('Erro ao fazer upload dos documentos: ' + (error as Error).message);
     } finally {
       setUploading(false);
       console.log('Upload process completed');
@@ -149,7 +150,7 @@ export default function ProcessDetailsModal({ isOpen, onClose, process, onUpdate
   const handleDeleteDocument = async (documentId: string) => {
     if (!documentId) {
       console.error('Document ID is required for deletion');
-      alert('Erro: ID do documento não encontrado');
+      toast.error('Erro: ID do documento não encontrado');
       return;
     }
 
@@ -195,7 +196,7 @@ export default function ProcessDetailsModal({ isOpen, onClose, process, onUpdate
       }, 500);
       
       console.log('✅ Document deletion completed successfully');
-      alert('Documento excluído com sucesso!');
+      toast.success('Documento excluído com sucesso!');
     } catch (error) {
       console.error('❌ Error deleting document:', error);
       console.error('Delete error details:', { 
@@ -203,7 +204,7 @@ export default function ProcessDetailsModal({ isOpen, onClose, process, onUpdate
         documentName: documentToDelete?.name,
         error: error.message 
       });
-      alert('Erro ao excluir documento: ' + (error as Error).message);
+      toast.error('Erro ao excluir documento: ' + (error as Error).message);
       
       // Reload documents to ensure UI is in sync with database
       console.log('🔄 Reloading documents after error...');
@@ -270,7 +271,7 @@ export default function ProcessDetailsModal({ isOpen, onClose, process, onUpdate
       await loadComments(); // Reload comments after adding
     } catch (error) {
       console.error('Error adding comment:', error);
-      alert('Erro ao adicionar comentário: ' + (error as Error).message);
+      toast.error('Erro ao adicionar comentário: ' + (error as Error).message);
     } finally {
       setAddingComment(false);
     }
@@ -284,7 +285,7 @@ export default function ProcessDetailsModal({ isOpen, onClose, process, onUpdate
       await loadComments(); // Reload comments after deleting
     } catch (error) {
       console.error('Error deleting comment:', error);
-      alert('Erro ao excluir comentário: ' + (error as Error).message);
+      toast.error('Erro ao excluir comentário: ' + (error as Error).message);
     }
   };
 
@@ -586,7 +587,7 @@ export default function ProcessDetailsModal({ isOpen, onClose, process, onUpdate
                           await DocumentService.downloadDocument(doc);
                         } catch (error) {
                           console.error('Error downloading document:', error);
-                          alert('Erro ao baixar documento: ' + (error as Error).message);
+                          toast.error('Erro ao baixar documento: ' + (error as Error).message);
                         }
                       }}
                       type="button"

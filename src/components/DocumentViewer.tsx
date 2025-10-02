@@ -1,4 +1,5 @@
 import React from 'react';
+import { toast } from 'react-toastify';
 import { DocumentService } from '../services/documentService';
 import { X, Download, FileText, Image, File } from 'lucide-react';
 
@@ -50,7 +51,7 @@ export default function DocumentViewer({ isOpen, onClose, document }: DocumentVi
       await DocumentService.downloadDocument(document);
     } catch (error) {
       console.error('Error downloading document:', error);
-      alert('Erro ao baixar documento: ' + (error as Error).message);
+      toast.error('Erro ao baixar documento: ' + (error as Error).message);
     } finally {
       setDownloading(false);
     }

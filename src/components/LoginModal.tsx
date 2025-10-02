@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { toast } from 'react-toastify';
 import { X, LogIn, UserPlus, Shield } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 
@@ -38,7 +39,7 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
       // Mostrar mensagem específica baseada no erro
       if (err.message.includes('Cadastro realizado! Verifique seu email')) {
         // Para cadastros que requerem confirmação de email
-        alert(err.message);
+        toast.success(err.message);
         onClose();
       } else {
         setError(err.message || 'Ocorreu um erro. Tente novamente.');
