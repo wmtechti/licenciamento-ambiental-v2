@@ -180,8 +180,7 @@ export default function GenericCRUD({
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-bold text-gray-900">{title}</h1>
+      <div className="flex justify-end items-center">
         {canCreate && onCreate && (
           <button
             onClick={onCreate}
@@ -224,6 +223,9 @@ export default function GenericCRUD({
           </div>
         </div>
       </div>
+
+      {/* Section Title - Above Table */}
+      <h1 className="text-2xl font-bold text-gray-900">{title}</h1>
 
       {/* Table */}
       <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
