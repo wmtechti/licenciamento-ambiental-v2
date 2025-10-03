@@ -388,8 +388,8 @@ export default function AdminDashboard({ initialSection = 'property-types' }: Ad
   // Special handling for billing configurations
   if (activeSection === 'billing-configurations') {
     return (
-      <AdminLayout activeSection={activeSection} onSectionChange={setActiveSection} sectionTitle={currentConfig.title}>
-        <div className="px-6 pb-6 h-full overflow-y-auto">
+      <AdminLayout activeSection={activeSection} onSectionChange={setActiveSection}>
+        <div className="p-6 h-full overflow-y-auto">
           <GenericCRUD
             key={`${activeSection}-${refreshKey}`}
             title={currentConfig.title}
@@ -416,8 +416,8 @@ export default function AdminDashboard({ initialSection = 'property-types' }: Ad
   // Special handling for activities
   if (activeSection === 'activities') {
     return (
-      <AdminLayout activeSection={activeSection} onSectionChange={setActiveSection} sectionTitle={currentConfig.title}>
-        <div className="px-6 pb-6 h-full overflow-y-auto">
+      <AdminLayout activeSection={activeSection} onSectionChange={setActiveSection}>
+        <div className="p-6 h-full overflow-y-auto">
           <GenericCRUD
             key={`${activeSection}-${refreshKey}`}
             title={currentConfig.title}
@@ -453,8 +453,8 @@ export default function AdminDashboard({ initialSection = 'property-types' }: Ad
   }
 
   return (
-    <AdminLayout activeSection={activeSection} onSectionChange={setActiveSection} sectionTitle={currentConfig.title}>
-      <div className="px-6 pb-6 h-full overflow-y-auto">
+    <AdminLayout activeSection={activeSection} onSectionChange={setActiveSection}>
+      <div className="p-6 h-full overflow-y-auto">
         <GenericCRUD
           key={`${activeSection}-${refreshKey}`}
           title={currentConfig.title}
