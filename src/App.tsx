@@ -549,38 +549,38 @@ function AppContent() {
     <div className="h-screen flex flex-col">
       {/* Header - Ocupa toda a largura da tela */}
       <header className="dark-header flex-shrink-0">
-        <div className="px-3 md:px-6 py-3 md:py-4 flex justify-between items-center">
-          <div className="flex items-center space-x-2 md:space-x-4">
+        <div className="px-6 py-4 flex justify-between items-center">
+          <div className="flex items-center space-x-4">
             <img
               src="/logo.png"
               alt="Logo"
-              className="h-8 w-8 md:h-10 md:w-10 object-contain"
+              className="h-10 w-10 object-contain"
             />
             <button
               onClick={() => setActiveTab('dashboard')}
-              className="flex items-center space-x-1 md:space-x-2 text-gray-300 hover:text-white transition-colors"
+              className="flex items-center space-x-2 text-gray-300 hover:text-white transition-colors"
             >
               <img
                 src={homeIcon}
                 alt="Home"
-                className="w-4 h-4 md:w-5 md:h-5"
+                className="w-5 h-5"
               />
-              <span className="text-xs md:text-sm font-medium">Painel</span>
+              <span className="text-sm font-medium">Painel</span>
             </button>
           </div>
-          <div className="flex items-center space-x-2 md:space-x-4">
+          <div className="flex items-center space-x-4">
             <button
               onClick={handleSignOut}
-              className="flex items-center space-x-1 md:space-x-2 px-2 md:px-4 py-1.5 md:py-2 text-gray-300 hover:text-white transition-colors rounded-lg hover:bg-gray-700"
+              className="flex items-center space-x-2 px-4 py-2 text-gray-300 hover:text-white transition-colors rounded-lg hover:bg-gray-700"
               title="Sair"
             >
-              <LogOut className="w-4 h-4 md:w-5 md:h-5" />
-              <span className="text-xs md:text-sm font-medium hidden sm:inline">Sair</span>
+              <LogOut className="w-5 h-5" />
+              <span className="text-sm font-medium">Sair</span>
             </button>
 
-            <div className="h-6 md:h-8 w-px bg-gray-600 hidden sm:block"></div>
+            <div className="h-8 w-px bg-gray-600"></div>
 
-            <span className="text-xs md:text-sm font-medium text-white hidden sm:inline">
+            <span className="text-sm font-medium text-white">
               {userMetadata?.name?.split(' ')[0] || user?.email?.split('@')[0] || 'Usuário'}
             </span>
           </div>
@@ -588,28 +588,28 @@ function AppContent() {
       </header>
 
       {/* Dashboard - Sidebar + Conteúdo Principal lado a lado */}
-      <div className="flex-1 flex overflow-hidden p-2 md:p-4 lg:p-6">
-        <div className="flex flex-col lg:flex-row gap-3 md:gap-4 lg:gap-6 w-full mx-auto px-2 md:px-4 lg:px-8">
+      <div className="flex-1 flex overflow-hidden p-6">
+        <div className="flex gap-6 w-full mx-auto px-8">
         {/* Sidebar */}
-        <div className="sidebar-nav shadow-lg flex-shrink-0 w-full lg:w-80">
+        <div className="sidebar-nav shadow-lg flex-shrink-0 w-80">
           <div className="flex flex-col h-full">
             {/* Logo */}
-            <div className="flex items-center px-3 md:px-6 py-3 md:py-4 border-b border-gray-200">
+            <div className="flex items-center px-6 py-4 border-b border-gray-200">
               <div className="flex items-center">
-                <div className="ml-2 md:ml-3">
-                  <p className="text-xs md:text-sm text-gray-500">Licenciamento Ambiental</p>
+                <div className="ml-3">
+                  <p className="text-xs text-gray-500">Licenciamento Ambiental</p>
                 </div>
               </div>
             </div>
 
             {/* Navigation */}
-            <nav className="flex-1 px-2 md:px-4 py-4 md:py-6 space-y-1 overflow-y-auto max-h-[300px] lg:max-h-none">
+            <nav className="flex-1 px-4 py-6 space-y-1">
               {navigation.map((item) => {
                 return (
                   <button
                     key={item.id}
                     onClick={() => setActiveTab(item.id)}
-                    className={`w-full flex items-center px-2 md:px-3 py-2 md:py-3 rounded-lg text-xs md:text-sm font-medium nav-item ${
+                    className={`w-full flex items-center px-3 py-3 rounded-lg text-sm font-medium nav-item ${
                       activeTab === item.id
                         ? 'active text-green-700'
                         : 'text-gray-600 hover:text-gray-900'
@@ -618,7 +618,7 @@ function AppContent() {
                     <img
                       src={treeIcon}
                       alt={item.name}
-                      className="w-4 h-4 md:w-5 md:h-5 flex-shrink-0 mr-2 md:mr-3"
+                      className="w-5 h-5 flex-shrink-0 mr-3"
                     />
                     {item.name}
                   </button>
@@ -629,7 +629,7 @@ function AppContent() {
               <div>
                 <button
                   onClick={() => setAdminExpanded(!adminExpanded)}
-                  className={`w-full flex items-center justify-between px-2 md:px-3 py-2 md:py-3 rounded-lg text-xs md:text-sm font-medium nav-item ${
+                  className={`w-full flex items-center justify-between px-3 py-3 rounded-lg text-sm font-medium nav-item ${
                     activeTab.startsWith('admin')
                       ? 'active text-green-700'
                       : 'text-gray-600 hover:text-gray-900'
@@ -639,7 +639,7 @@ function AppContent() {
                     <img
                       src={arrowIcon}
                       alt="Administração"
-                      className={`w-4 h-4 md:w-5 md:h-5 flex-shrink-0 mr-2 md:mr-3 transition-transform duration-200 ${
+                      className={`w-5 h-5 flex-shrink-0 mr-3 transition-transform duration-200 ${
                         adminExpanded ? 'rotate-90' : ''
                       }`}
                     />
@@ -649,12 +649,12 @@ function AppContent() {
 
                 {/* Admin Submenu */}
                 {adminExpanded && (
-                  <div className="mt-1 space-y-1 pl-4 md:pl-8 max-h-48 md:max-h-64 overflow-y-auto">
+                  <div className="mt-1 space-y-1 pl-8 max-h-64 overflow-y-auto">
                     {adminSubSections.map((subItem) => (
                       <button
                         key={subItem.id}
                         onClick={() => setActiveTab(`admin-${subItem.id}`)}
-                        className={`w-full flex items-center px-2 md:px-3 py-1.5 md:py-2 rounded-lg text-xs md:text-sm font-medium transition-colors ${
+                        className={`w-full flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                           activeTab === `admin-${subItem.id}`
                             ? 'bg-green-100 text-green-700 border border-green-200'
                             : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
@@ -663,7 +663,7 @@ function AppContent() {
                         <img
                           src={submenuIcon}
                           alt=""
-                          className="w-4 h-4 md:w-5 md:h-5 flex-shrink-0 mr-2 md:mr-3"
+                          className="w-5 h-5 flex-shrink-0 mr-3"
                         />
                         {subItem.name}
                       </button>
@@ -678,7 +678,7 @@ function AppContent() {
         {/* Conteúdo Principal - Ao lado da sidebar */}
         <div className="flex-1 flex flex-col overflow-hidden">
           <main className="flex-1 overflow-auto">
-            <div className="content-area p-3 md:p-4 lg:p-6 h-full rounded-lg">
+            <div className="content-area p-6 h-full rounded-lg">
               {renderContent()}
             </div>
           </main>
