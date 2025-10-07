@@ -24,9 +24,7 @@ import {
   BarChart3,
   Shield,
   LogOut,
-  MapPin,
-  Menu,
-  ChevronLeft
+  MapPin
 } from 'lucide-react';
 import GeoVisualization from './components/geo/GeoVisualization';
 import treeIcon from '/src/assets/tree_icon_menu.svg'
@@ -35,7 +33,6 @@ import arrowIcon from '/src/assets/arrow.svg'
 function AppContent() {
   const { user, userMetadata, signOut, loading, isConfigured, isSupabaseReady } = useAuth();
   const [activeTab, setActiveTab] = useState('dashboard');
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [adminExpanded, setAdminExpanded] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterStatus, setFilterStatus] = useState('all');
@@ -552,13 +549,6 @@ function AppContent() {
       <header className="dark-header flex-shrink-0">
         <div className="px-6 py-4 flex justify-between items-center">
           <div className="flex items-center space-x-4">
-            <button
-              onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-              className="p-2 text-gray-300 hover:text-white transition-colors lg:hidden"
-              title={sidebarCollapsed ? 'Expandir menu' : 'Recolher menu'}
-            >
-              <Menu className="w-5 h-5" />
-            </button>
             <img
               src="/logo.png"
               alt="Logo"
@@ -591,35 +581,18 @@ function AppContent() {
       <div className="flex-1 flex overflow-hidden p-6">
         <div className="flex gap-6 w-full mx-auto px-8">
         {/* Sidebar */}
-        <div className={`sidebar-nav shadow-lg flex-shrink-0 transition-all duration-300 ${
-          sidebarCollapsed ? 'w-16' : 'w-80'
-        } ${sidebarCollapsed ? 'lg:w-16' : 'lg:w-80'}`}>
+        <div className="sidebar-nav shadow-lg flex-shrink-0 w-80">
           <div className="flex flex-col h-full">
             {/* Logo */}
             <div className="flex items-center px-6 py-4 border-b border-gray-200">
-              <div className="flex items-center justify-between w-full">
-                <div className="flex items-center">
-                  <div className="w-8 h-8 bg-green-600 rounded-lg flex items-center justify-center">
-                    <Shield className="w-5 h-5 text-white" />
-                  </div>
-                  {!sidebarCollapsed && (
-                    <div className="ml-3">
-                      <h1 className="text-lg font-bold text-gray-900">Painel</h1>
-                      <p className="text-xs text-gray-500">Licenciamento Ambiental</p>
-                    </div>
-                  )}
+              <div className="flex items-center">
+                <div className="w-8 h-8 bg-green-600 rounded-lg flex items-center justify-center">
+                  <Shield className="w-5 h-5 text-white" />
                 </div>
-                <button
-                  onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-                  className="p-1 text-gray-400 hover:text-gray-600 transition-colors hidden lg:block"
-                  title={sidebarCollapsed ? 'Expandir menu' : 'Recolher menu'}
-                >
-                  {sidebarCollapsed ? (
-                    <Menu className="w-5 h-5" />
-                  ) : (
-                    <ChevronLeft className="w-5 h-5" />
-                  )}
-                </button>
+                <div className="ml-3">
+                  <h1 className="text-lg font-bold text-gray-900">Painel</h1>
+                  <p className="text-xs text-gray-500">Licenciamento Ambiental</p>
+                </div>
               </div>
             </div>
 
@@ -635,14 +608,13 @@ function AppContent() {
                         ? 'active text-green-700'
                         : 'text-gray-600 hover:text-gray-900'
                     }`}
-                    title={sidebarCollapsed ? item.name : undefined}
                   >
                     <img
                       src={treeIcon}
                       alt={item.name}
-                      className={`w-5 h-5 flex-shrink-0 ${!sidebarCollapsed ? 'mr-3' : ''}`}
+                      className="w-5 h-5 flex-shrink-0 mr-3"
                     />
-                    {!sidebarCollapsed && item.name}
+                    {item.name}
                   </button>
                 );
               })}
@@ -656,29 +628,26 @@ function AppContent() {
                       ? 'active text-green-700'
                       : 'text-gray-600 hover:text-gray-900'
                   }`}
-                  title={sidebarCollapsed ? 'Administração' : undefined}
                 >
                   <div className="flex items-center">
                     <img
                       src={treeIcon}
                       alt="Administração"
-                      className={`w-5 h-5 flex-shrink-0 ${!sidebarCollapsed ? 'mr-3' : ''}`}
+                      className="w-5 h-5 flex-shrink-0 mr-3"
                     />
-                    {!sidebarCollapsed && 'Administração'}
+                    Administração
                   </div>
-                  {!sidebarCollapsed && (
-                    <img
-                      src={arrowIcon}
-                      alt="Toggle"
-                      className={`w-4 h-4 transition-transform duration-200 ${
-                        adminExpanded ? 'rotate-90' : ''
-                      }`}
-                    />
-                  )}
+                  <img
+                    src={arrowIcon}
+                    alt="Toggle"
+                    className={`w-4 h-4 transition-transform duration-200 ${
+                      adminExpanded ? 'rotate-90' : ''
+                    }`}
+                  />
                 </button>
 
                 {/* Admin Submenu */}
-                {!sidebarCollapsed && adminExpanded && (
+                {adminExpanded && (
                   <div className="mt-1 space-y-1 pl-8 max-h-64 overflow-y-auto">
                     {adminSubSections.map((subItem) => (
                       <button
@@ -711,13 +680,6 @@ function AppContent() {
         </div>
       </div>
 
-      {/* Mobile Sidebar Overlay */}
-      {!sidebarCollapsed && (
-        <div 
-          className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
-          onClick={() => setSidebarCollapsed(true)}
-        />
-      )}
 
       {/* Modals */}
       <NewProcessModal
