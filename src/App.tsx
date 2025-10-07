@@ -631,19 +631,14 @@ function AppContent() {
                 >
                   <div className="flex items-center">
                     <img
-                      src={treeIcon}
+                      src={arrowIcon}
                       alt="Administração"
-                      className="w-5 h-5 flex-shrink-0 mr-3"
+                      className={`w-5 h-5 flex-shrink-0 mr-3 transition-transform duration-200 ${
+                        adminExpanded ? 'rotate-90' : ''
+                      }`}
                     />
                     Administração
                   </div>
-                  <img
-                    src={arrowIcon}
-                    alt="Toggle"
-                    className={`w-4 h-4 transition-transform duration-200 ${
-                      adminExpanded ? 'rotate-90' : ''
-                    }`}
-                  />
                 </button>
 
                 {/* Admin Submenu */}
