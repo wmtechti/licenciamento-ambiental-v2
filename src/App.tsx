@@ -29,6 +29,7 @@ import {
 import GeoVisualization from './components/geo/GeoVisualization';
 import treeIcon from '/src/assets/tree_icon_menu.svg'
 import arrowIcon from '/src/assets/arrow.svg'
+import submenuIcon from '/src/assets/files_7281182-1759864502693-files_7281182-1759864312235-tree_icon_menu.svg'
 
 function AppContent() {
   const { user, userMetadata, signOut, loading, isConfigured, isSupabaseReady } = useAuth();
@@ -655,9 +656,9 @@ function AppContent() {
                         }`}
                       >
                         <img
-                          src={arrowIcon}
+                          src={submenuIcon}
                           alt=""
-                          className="w-4 h-4 flex-shrink-0 mr-2"
+                          className="w-5 h-5 flex-shrink-0 mr-3"
                         />
                         {subItem.name}
                       </button>
