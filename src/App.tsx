@@ -584,9 +584,6 @@ function AppContent() {
             {/* Logo */}
             <div className="flex items-center px-6 py-4 border-b border-gray-200">
               <div className="flex items-center">
-                <div className="w-8 h-8 bg-green-600 rounded-lg flex items-center justify-center">
-                  <Shield className="w-5 h-5 text-white" />
-                </div>
                 <div className="ml-3">
                   <p className="text-xs text-gray-500">Licenciamento Ambiental</p>
                 </div>
