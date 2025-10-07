@@ -556,7 +556,7 @@ function AppContent() {
               className="h-10 w-10 object-contain"
             />
             <h2 className="text-sm text-gray-300">
-              Sistema de Licenciamento Ambiental - Baseado na Legislação Brasileira
+              Licenciamento Ambiental
             </h2>
           </div>
           <div className="flex items-center space-x-4">
