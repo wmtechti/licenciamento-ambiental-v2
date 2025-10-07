@@ -555,9 +555,6 @@ function AppContent() {
               alt="Logo"
               className="h-10 w-10 object-contain"
             />
-            <h2 className="text-sm text-gray-300">
-              Licenciamento Ambiental
-            </h2>
           </div>
           <div className="flex items-center space-x-4">
             <button
@@ -591,7 +588,6 @@ function AppContent() {
                   <Shield className="w-5 h-5 text-white" />
                 </div>
                 <div className="ml-3">
-                  <h1 className="text-lg font-bold text-gray-900">Painel</h1>
                   <p className="text-xs text-gray-500">Licenciamento Ambiental</p>
                 </div>
               </div>
