@@ -59,23 +59,18 @@ body::before {
 @media (max-width: 1023px) {
   .sidebar-nav {
     position: fixed;
-    top: 88px; /* Below header + margin */
-    left: 24px; /* Match container margin */
+    top: 72px;
+    left: 0;
     bottom: 0;
+    max-width: 85vw;
     z-index: 50;
     transform: translateX(-100%);
     transition: transform 0.3s ease-in-out;
-    margin-bottom: 24px; /* Match container margin */
+    overflow-y: auto;
   }
-  
-  .sidebar-nav:not(.w-16) {
+
+  .sidebar-nav:not(.hidden) {
     transform: translateX(0);
-  }
-  
-  /* Remove margins and gaps on mobile to prevent sidebar from being cut off */
-  .dashboard-container {
-    padding: 1rem !important;
-    gap: 1rem !important;
   }
 }
 
@@ -206,4 +201,39 @@ body::before {
 
 .user-avatar:hover {
   box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.5);
+}
+
+/* Responsive table wrapper */
+@media (max-width: 768px) {
+  .overflow-x-auto {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  table th,
+  table td {
+    min-width: 100px;
+    font-size: 0.875rem;
+    padding: 0.75rem 1rem;
+  }
+
+  .stat-card {
+    padding: 1rem;
+  }
+
+  .stat-card p {
+    font-size: 0.875rem;
+  }
+}
+
+/* Responsive grid adjustments */
+@media (max-width: 640px) {
+  .grid.md\:grid-cols-2.lg\:grid-cols-5 {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1023px) {
+  .grid.md\:grid-cols-2.lg\:grid-cols-5 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }

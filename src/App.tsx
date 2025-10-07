@@ -24,7 +24,9 @@ import {
   BarChart3,
   Shield,
   LogOut,
-  MapPin
+  MapPin,
+  Menu,
+  X
 } from 'lucide-react';
 import GeoVisualization from './components/geo/GeoVisualization';
 import treeIcon from '/src/assets/tree_icon_menu.svg'
@@ -43,6 +45,7 @@ function AppContent() {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [selectedProcess, setSelectedProcess] = useState(null);
   const [processes, setProcesses] = useState<any[]>([]);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [stats, setStats] = useState({
     total: 0,
     pending: 0,
@@ -279,77 +282,78 @@ function AppContent() {
 
   const renderDashboard = () => (
     <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold text-gray-900">Painel de Controle</h1>
-        <div className="flex space-x-3">
-          <button 
-            className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 sm:gap-0">
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Painel de Controle</h1>
+        <div className="flex space-x-2 sm:space-x-3">
+          <button
+            className="bg-green-600 hover:bg-green-700 text-white px-3 sm:px-4 py-2 rounded-lg flex items-center gap-1 sm:gap-2 transition-colors text-sm sm:text-base"
             onClick={() => setShowNewProcessModal(true)}
           >
-            <Plus className="w-5 h-5" />
-            Novo Processo
+            <Plus className="w-4 h-4 sm:w-5 sm:h-5" />
+            <span className="hidden xs:inline">Novo Processo</span>
+            <span className="xs:hidden">Novo</span>
           </button>
         </div>
       </div>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
-        <div className="stat-card p-6 rounded-lg">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-6">
+        <div className="stat-card p-4 sm:p-6 rounded-lg">
           <div className="flex items-center">
             <div className="p-2 bg-blue-100 rounded-lg">
-              <FileText className="w-6 h-6 text-blue-600" />
+              <FileText className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600" />
             </div>
-            <div className="ml-4">
-              <p className="text-sm font-medium text-gray-600">Total de Processos</p>
-              <p className="text-2xl font-bold text-gray-900">{stats.total}</p>
+            <div className="ml-3 sm:ml-4">
+              <p className="text-xs sm:text-sm font-medium text-gray-600">Total de Processos</p>
+              <p className="text-xl sm:text-2xl font-bold text-gray-900">{stats.total}</p>
             </div>
           </div>
         </div>
 
-        <div className="stat-card p-6 rounded-lg">
+        <div className="stat-card p-4 sm:p-6 rounded-lg">
           <div className="flex items-center">
             <div className="p-2 bg-yellow-100 rounded-lg">
-              <Clock className="w-6 h-6 text-yellow-600" />
+              <Clock className="w-5 h-5 sm:w-6 sm:h-6 text-yellow-600" />
             </div>
-            <div className="ml-4">
-              <p className="text-sm font-medium text-gray-600">Pendentes</p>
-              <p className="text-2xl font-bold text-gray-900">{stats.pending}</p>
+            <div className="ml-3 sm:ml-4">
+              <p className="text-xs sm:text-sm font-medium text-gray-600">Pendentes</p>
+              <p className="text-xl sm:text-2xl font-bold text-gray-900">{stats.pending}</p>
             </div>
           </div>
         </div>
 
-        <div className="stat-card p-6 rounded-lg">
+        <div className="stat-card p-4 sm:p-6 rounded-lg">
           <div className="flex items-center">
             <div className="p-2 bg-blue-100 rounded-lg">
-              <TrendingUp className="w-6 h-6 text-blue-600" />
+              <TrendingUp className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600" />
             </div>
-            <div className="ml-4">
-              <p className="text-sm font-medium text-gray-600">Em Análise</p>
-              <p className="text-2xl font-bold text-gray-900">{stats.analysis}</p>
+            <div className="ml-3 sm:ml-4">
+              <p className="text-xs sm:text-sm font-medium text-gray-600">Em Análise</p>
+              <p className="text-xl sm:text-2xl font-bold text-gray-900">{stats.analysis}</p>
             </div>
           </div>
         </div>
 
-        <div className="stat-card p-6 rounded-lg">
+        <div className="stat-card p-4 sm:p-6 rounded-lg">
           <div className="flex items-center">
             <div className="p-2 bg-green-100 rounded-lg">
-              <CheckCircle className="w-6 h-6 text-green-600" />
+              <CheckCircle className="w-5 h-5 sm:w-6 sm:h-6 text-green-600" />
             </div>
-            <div className="ml-4">
-              <p className="text-sm font-medium text-gray-600">Aprovadas</p>
-              <p className="text-2xl font-bold text-gray-900">{stats.approved}</p>
+            <div className="ml-3 sm:ml-4">
+              <p className="text-xs sm:text-sm font-medium text-gray-600">Aprovadas</p>
+              <p className="text-xl sm:text-2xl font-bold text-gray-900">{stats.approved}</p>
             </div>
           </div>
         </div>
 
-        <div className="stat-card p-6 rounded-lg">
+        <div className="stat-card p-4 sm:p-6 rounded-lg">
           <div className="flex items-center">
             <div className="p-2 bg-red-100 rounded-lg">
-              <AlertTriangle className="w-6 h-6 text-red-600" />
+              <AlertTriangle className="w-5 h-5 sm:w-6 sm:h-6 text-red-600" />
             </div>
-            <div className="ml-4">
-              <p className="text-sm font-medium text-gray-600">Rejeitadas</p>
-              <p className="text-2xl font-bold text-gray-900">{stats.rejected}</p>
+            <div className="ml-3 sm:ml-4">
+              <p className="text-xs sm:text-sm font-medium text-gray-600">Rejeitadas</p>
+              <p className="text-xl sm:text-2xl font-bold text-gray-900">{stats.rejected}</p>
             </div>
           </div>
         </div>
@@ -357,11 +361,11 @@ function AppContent() {
 
       {/* Recent Activity */}
       <div className="glass-effect rounded-lg">
-        <div className="p-6 border-b border-gray-200 border-opacity-50">
-          <h2 className="text-xl font-semibold text-gray-900">Atividade Recente</h2>
+        <div className="p-4 sm:p-6 border-b border-gray-200 border-opacity-50">
+          <h2 className="text-lg sm:text-xl font-semibold text-gray-900">Atividade Recente</h2>
         </div>
-        <div className="p-6">
-          <div className="space-y-4">
+        <div className="p-4 sm:p-6">
+          <div className="space-y-3 sm:space-y-4">
             {processes.slice(0, 3).map((license) => (
               <div 
                 key={license.id} 
@@ -392,20 +396,21 @@ function AppContent() {
 
   const renderProcesses = () => (
     <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold text-gray-900">Processos de Licenciamento</h1>
-        <button 
-          className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 sm:gap-0">
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Processos de Licenciamento</h1>
+        <button
+          className="bg-green-600 hover:bg-green-700 text-white px-3 sm:px-4 py-2 rounded-lg flex items-center gap-1 sm:gap-2 transition-colors text-sm sm:text-base"
           onClick={() => setShowNewProcessModal(true)}
         >
-          <Plus className="w-5 h-5" />
-          Novo Processo
+          <Plus className="w-4 h-4 sm:w-5 sm:h-5" />
+          <span className="hidden xs:inline">Novo Processo</span>
+          <span className="xs:hidden">Novo</span>
         </button>
       </div>
 
       {/* Filters */}
-      <div className="glass-effect p-4 rounded-lg">
-        <div className="flex flex-col md:flex-row gap-4">
+      <div className="glass-effect p-3 sm:p-4 rounded-lg">
+        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
           <div className="flex-1">
             <div className="relative">
               <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
@@ -438,8 +443,8 @@ function AppContent() {
 
       {/* Process List */}
       <div className="glass-effect rounded-lg">
-        <div className="p-6 border-b border-gray-200 border-opacity-50">
-          <h2 className="text-xl font-semibold text-gray-900">Lista de Processos</h2>
+        <div className="p-4 sm:p-6 border-b border-gray-200 border-opacity-50">
+          <h2 className="text-lg sm:text-xl font-semibold text-gray-900">Lista de Processos</h2>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full">
@@ -510,24 +515,24 @@ function AppContent() {
       case 'dashboard': return renderDashboard();
       case 'processes': return renderProcesses();
       case 'companies': return (
-        <div className="text-center py-12">
-          <Building2 className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-          <h2 className="text-2xl font-semibold text-gray-900 mb-2">Cadastro de Empresas</h2>
-          <p className="text-gray-600">Módulo em desenvolvimento</p>
+        <div className="text-center py-8 sm:py-12 px-4">
+          <Building2 className="w-12 h-12 sm:w-16 sm:h-16 text-gray-400 mx-auto mb-4" />
+          <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-2">Cadastro de Empresas</h2>
+          <p className="text-sm sm:text-base text-gray-600">Módulo em desenvolvimento</p>
         </div>
       );
       case 'reports': return (
-        <div className="text-center py-12">
-          <BarChart3 className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-          <h2 className="text-2xl font-semibold text-gray-900 mb-2">Relatórios Gerenciais</h2>
-          <p className="text-gray-600">Módulo em desenvolvimento</p>
+        <div className="text-center py-8 sm:py-12 px-4">
+          <BarChart3 className="w-12 h-12 sm:w-16 sm:h-16 text-gray-400 mx-auto mb-4" />
+          <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-2">Relatórios Gerenciais</h2>
+          <p className="text-sm sm:text-base text-gray-600">Módulo em desenvolvimento</p>
         </div>
       );
       case 'compliance': return (
-        <div className="text-center py-12">
-          <Shield className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-          <h2 className="text-2xl font-semibold text-gray-900 mb-2">Monitoramento de Conformidade</h2>
-          <p className="text-gray-600">Módulo em desenvolvimento</p>
+        <div className="text-center py-8 sm:py-12 px-4">
+          <Shield className="w-12 h-12 sm:w-16 sm:h-16 text-gray-400 mx-auto mb-4" />
+          <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-2">Monitoramento de Conformidade</h2>
+          <p className="text-sm sm:text-base text-gray-600">Módulo em desenvolvimento</p>
         </div>
       );
       case 'geo': return (
@@ -549,16 +554,28 @@ function AppContent() {
     <div className="h-screen flex flex-col">
       {/* Header - Ocupa toda a largura da tela */}
       <header className="dark-header flex-shrink-0">
-        <div className="px-6 py-4 flex justify-between items-center">
-          <div className="flex items-center space-x-4">
+        <div className="px-4 sm:px-6 py-4 flex justify-between items-center">
+          <div className="flex items-center space-x-2 sm:space-x-4">
+            {/* Hamburger Menu Button - Visible on mobile/tablet */}
+            <button
+              onClick={() => setSidebarOpen(!sidebarOpen)}
+              className="lg:hidden p-2 text-gray-300 hover:text-white transition-colors rounded-lg hover:bg-gray-700"
+              aria-label="Toggle menu"
+            >
+              {sidebarOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+
             <img
               src="/logo.png"
               alt="Logo"
-              className="h-10 w-10 object-contain"
+              className="h-8 w-8 sm:h-10 sm:w-10 object-contain"
             />
             <button
-              onClick={() => setActiveTab('dashboard')}
-              className="flex items-center space-x-2 text-gray-300 hover:text-white transition-colors"
+              onClick={() => {
+                setActiveTab('dashboard');
+                setSidebarOpen(false);
+              }}
+              className="hidden sm:flex items-center space-x-2 text-gray-300 hover:text-white transition-colors"
             >
               <img
                 src={homeIcon}
@@ -568,19 +585,19 @@ function AppContent() {
               <span className="text-sm font-medium">Painel</span>
             </button>
           </div>
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-2 sm:space-x-4">
             <button
               onClick={handleSignOut}
-              className="flex items-center space-x-2 px-4 py-2 text-gray-300 hover:text-white transition-colors rounded-lg hover:bg-gray-700"
+              className="flex items-center space-x-1 sm:space-x-2 px-2 sm:px-4 py-2 text-gray-300 hover:text-white transition-colors rounded-lg hover:bg-gray-700"
               title="Sair"
             >
-              <LogOut className="w-5 h-5" />
-              <span className="text-sm font-medium">Sair</span>
+              <LogOut className="w-4 h-4 sm:w-5 sm:h-5" />
+              <span className="text-xs sm:text-sm font-medium hidden sm:inline">Sair</span>
             </button>
 
-            <div className="h-8 w-px bg-gray-600"></div>
+            <div className="hidden sm:block h-8 w-px bg-gray-600"></div>
 
-            <span className="text-sm font-medium text-white">
+            <span className="text-xs sm:text-sm font-medium text-white">
               {userMetadata?.name?.split(' ')[0] || user?.email?.split('@')[0] || 'Usuário'}
             </span>
           </div>
@@ -588,10 +605,20 @@ function AppContent() {
       </header>
 
       {/* Dashboard - Sidebar + Conteúdo Principal lado a lado */}
-      <div className="flex-1 flex overflow-hidden p-6">
-        <div className="flex gap-6 w-full mx-auto px-8">
+      <div className="flex-1 flex overflow-hidden p-3 sm:p-6">
+        <div className="dashboard-container flex gap-4 lg:gap-6 w-full mx-auto px-2 sm:px-4 lg:px-8">
+        {/* Mobile Overlay */}
+        {sidebarOpen && (
+          <div
+            className="lg:hidden fixed inset-0 bg-black bg-opacity-50 z-40"
+            onClick={() => setSidebarOpen(false)}
+          />
+        )}
+
         {/* Sidebar */}
-        <div className="sidebar-nav shadow-lg flex-shrink-0 w-80">
+        <div className={`sidebar-nav shadow-lg flex-shrink-0 w-72 sm:w-80 z-50 ${
+          sidebarOpen ? '' : 'lg:block hidden'
+        }`}>
           <div className="flex flex-col h-full">
             {/* Logo */}
             <div className="flex items-center px-6 py-4 border-b border-gray-200">
@@ -608,7 +635,10 @@ function AppContent() {
                 return (
                   <button
                     key={item.id}
-                    onClick={() => setActiveTab(item.id)}
+                    onClick={() => {
+                      setActiveTab(item.id);
+                      setSidebarOpen(false);
+                    }}
                     className={`w-full flex items-center px-3 py-3 rounded-lg text-sm font-medium nav-item ${
                       activeTab === item.id
                         ? 'active text-green-700'
@@ -653,7 +683,10 @@ function AppContent() {
                     {adminSubSections.map((subItem) => (
                       <button
                         key={subItem.id}
-                        onClick={() => setActiveTab(`admin-${subItem.id}`)}
+                        onClick={() => {
+                          setActiveTab(`admin-${subItem.id}`);
+                          setSidebarOpen(false);
+                        }}
                         className={`w-full flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                           activeTab === `admin-${subItem.id}`
                             ? 'bg-green-100 text-green-700 border border-green-200'
@@ -676,9 +709,9 @@ function AppContent() {
         </div>
 
         {/* Conteúdo Principal - Ao lado da sidebar */}
-        <div className="flex-1 flex flex-col overflow-hidden">
+        <div className="flex-1 flex flex-col overflow-hidden min-w-0">
           <main className="flex-1 overflow-auto">
-            <div className="content-area p-6 h-full rounded-lg">
+            <div className="content-area p-3 sm:p-4 lg:p-6 h-full rounded-lg">
               {renderContent()}
             </div>
           </main>
