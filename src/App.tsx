@@ -30,6 +30,7 @@ import GeoVisualization from './components/geo/GeoVisualization';
 import treeIcon from '/src/assets/tree_icon_menu.svg'
 import arrowIcon from '/src/assets/arrow.svg'
 import submenuIcon from '/src/assets/files_7281182-1759864502693-files_7281182-1759864312235-tree_icon_menu.svg'
+import homeIcon from '/src/assets/icon_home.svg'
 
 function AppContent() {
   const { user, userMetadata, signOut, loading, isConfigured, isSupabaseReady } = useAuth();
@@ -555,6 +556,17 @@ function AppContent() {
               alt="Logo"
               className="h-10 w-10 object-contain"
             />
+            <button
+              onClick={() => setActiveTab('dashboard')}
+              className="flex items-center space-x-2 text-gray-300 hover:text-white transition-colors"
+            >
+              <img
+                src={homeIcon}
+                alt="Home"
+                className="w-5 h-5"
+              />
+              <span className="text-sm font-medium">Painel</span>
+            </button>
           </div>
           <div className="flex items-center space-x-4">
             <button
