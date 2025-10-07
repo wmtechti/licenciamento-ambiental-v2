@@ -654,6 +654,11 @@ function AppContent() {
                             : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
                         }`}
                       >
+                        <img
+                          src={arrowIcon}
+                          alt=""
+                          className="w-4 h-4 flex-shrink-0 mr-2"
+                        />
                         {subItem.name}
                       </button>
                     ))}
